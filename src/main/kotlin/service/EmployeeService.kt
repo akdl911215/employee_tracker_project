@@ -1,12 +1,20 @@
 package org.jh.service
 
 import org.jh.dto.EmployeeDto
+import org.jh.dto.EmployeeWithHistoryDto
+import org.jh.entity.Employee
+import org.jh.entity.JobHistory
 import org.jh.repository.EmployeeRepository
+import org.jh.repository.JobHistoryRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class EmployeeService(private val employeeRepository: EmployeeRepository) {
+class EmployeeService(
+    private val employeeRepository: EmployeeRepository,
+    private val jobHistoryRepository: JobHistoryRepository,
+    ) {
 
     @Transactional(readOnly = true)
     fun getEmployeeById(id: Long): EmployeeDto {
@@ -28,4 +36,13 @@ class EmployeeService(private val employeeRepository: EmployeeRepository) {
         )
     }
 
+    fun getEmployeeWithHistory(employeeId: Long): EmployeeWithHistoryDto {
+        val employee: Employee? = employeeRepository.findByIdOrNull(employeeId)
+        val jobHistory: List<JobHistory> = jobHistoryRepository.findAllByEmployeeId(employeeId)
+
+        return EmployeeWithHistoryDto(
+            employee = employee,
+            jobHistory = jobHistory
+        )
+    }
 }

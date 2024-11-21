@@ -2734,4 +2734,19 @@ VALUES (
            90
        );
 
+INSERT INTO job_history (employee_id, start_date, end_date, job_id, department_id)
+VALUES
+    (102, TO_DATE('13-Jan-1993', 'DD-Mon-YYYY'), TO_DATE('24-Jul-1998', 'DD-Mon-YYYY'), 'IT_PROG', 60),
+    (101, TO_DATE('21-Sep-1989', 'DD-Mon-YYYY'), TO_DATE('27-Oct-1993', 'DD-Mon-YYYY'), 'AC_ACCOUNT', 110),
+    (101, TO_DATE('28-Oct-1993', 'DD-Mon-YYYY'), TO_DATE('15-Mar-1997', 'DD-Mon-YYYY'), 'AC_MGR', 110),
+    (201, TO_DATE('27-Feb-1996', 'DD-Mon-YYYY'), TO_DATE('19-Dec-1999', 'DD-Mon-YYYY'), 'MK_REP', 20),
+    (114, TO_DATE('24-Mar-1998', 'DD-Mon-YYYY'), TO_DATE('31-Dec-1999', 'DD-Mon-YYYY'), 'ST_CLERK', 50),
+    (122, TO_DATE('01-Jan-1999', 'DD-Mon-YYYY'), TO_DATE('31-Dec-1999', 'DD-Mon-YYYY'), 'ST_CLERK', 50),
+    (200, TO_DATE('17-Sep-1987', 'DD-Mon-YYYY'), TO_DATE('17-Jun-1993', 'DD-Mon-YYYY'), 'AD_ASST', 90),
+    (176, TO_DATE('24-Mar-1998', 'DD-Mon-YYYY'), TO_DATE('31-Dec-1998', 'DD-Mon-YYYY'), 'SA_REP', 80),
+    (176, TO_DATE('01-Jan-1999', 'DD-Mon-YYYY'), TO_DATE('31-Dec-1999', 'DD-Mon-YYYY'), 'SA_MAN', 80),
+    (200, TO_DATE('01-Jul-1994', 'DD-Mon-YYYY'), TO_DATE('31-Dec-1998', 'DD-Mon-YYYY'), 'AC_ACCOUNT', 90);
+
+
+
 COMMIT;
