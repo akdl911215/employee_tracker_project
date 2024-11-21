@@ -9,5 +9,8 @@ data class EmployeeDto(
     val phoneNumber: String?,
     val salary: Double,
     val hireDate: String,
-    val jobTitle: String
+    val jobId: String,
+    val commissionPct: Double?,
+    val managerId: Long?,
+    val departmentId: Long?
 )

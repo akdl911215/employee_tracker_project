@@ -31,5 +31,14 @@ data class Employee (
 
     @ManyToOne
     @JoinColumn(name = "job_id", referencedColumnName = "job_id")
-    val job: Job
+    val job: Job,
+
+    @Column(name = "commission_pct")
+    val commissionPct: Double? = null,
+
+    @Column(name = "manager_id")
+    val managerId: Long? = null,
+
+    @Column(name = "department_id")
+    val departmentId: Long? = null,
 )

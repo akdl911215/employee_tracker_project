@@ -1,7 +1,6 @@
 package org.jh.service
 
 import org.jh.dto.EmployeeDto
-import org.jh.entity.Employee
 import org.jh.repository.EmployeeRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -22,7 +21,10 @@ class EmployeeService(private val employeeRepository: EmployeeRepository) {
             phoneNumber = employee.phoneNumber,
             salary = employee.salary,
             hireDate = employee.hireDate.toString(),
-            jobTitle = employee.job.title
+            jobId = employee.job.id,
+            commissionPct = employee.commissionPct,
+            managerId = employee.managerId,
+            departmentId = employee.departmentId,
         )
     }
 
