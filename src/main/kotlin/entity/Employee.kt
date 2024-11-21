@@ -29,7 +29,7 @@ data class Employee (
     @Column(name = "salary")
     val salary: Double,
 
-//    @ManyToOne
-//    @JoinColumn(name = "job_id", referencedColumnName = "job_id")
-//    val job: Job
+    @ManyToOne
+    @JoinColumn(name = "job_id", referencedColumnName = "job_id")
+    val job: Job
 )
