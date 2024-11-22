@@ -22,11 +22,6 @@ class EmployeeService(
         val employee: Employee = employeeRepository.findByIdOrNull(id)
             ?: throw EntityNotFoundException("Employee with id $id not found")
 
-//        updateDto.firstName?.let { employee.firstName = it }
-//        updateDto.lastName?.let { employee.lastName = it }
-//        updateDto.email?.let { employee.email = it }
-//        updateDto.phoneNumber?.let { employee.phoneNumber = it }
-//        updateDto.salary?.let { employee.salary = it }
         val updatedEmployee = employee.copy(
             firstName = updateDto.firstName ?: employee.firstName,
             lastName = updateDto.lastName ?: employee.lastName,
@@ -36,8 +31,24 @@ class EmployeeService(
         )
 
         val saveEmployee: Employee = employeeRepository.save(updatedEmployee)
-        return EmployeeDto(saveEmployee)
+        return mapToDto(saveEmployee)
 
+    }
+
+    private fun mapToDto(employee: Employee): EmployeeDto {
+        return EmployeeDto(
+            id = employee.id ?: throw IllegalArgumentException("Employee ID cannot be null"),
+            firstName = employee.firstName,
+            lastName = employee.lastName,
+            email = employee.email,
+            phoneNumber = employee.phoneNumber,
+            salary = employee.salary,
+            hireDate = employee.hireDate.toString(),
+            jobId = employee.job.id,
+            commissionPct = employee.commissionPct,
+            managerId = employee.managerId,
+            departmentId = employee.departmentId,
+        )
     }
 
     @Transactional(readOnly = true)

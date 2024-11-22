@@ -12,22 +12,22 @@ data class Employee (
     var id: Long? = null,
 
     @Column(name = "first_name")
-    val firstName: String,
+    val firstName: String = "",
 
     @Column(name = "last_name")
-    val lastName: String,
+    val lastName: String = "",
 
     @Column(name = "email")
-    val email: String,
+    val email: String = "",
 
     @Column(name = "phone_number")
-    val phoneNumber: String,
+    val phoneNumber: String = "",
 
     @Column(name = "hire_date")
-    val hireDate: LocalDate,
+    val hireDate: LocalDate = LocalDate.now(),
 
     @Column(name = "salary")
-    val salary: Double,
+    val salary: Double = 0.0,
 
     @ManyToOne
     @JoinColumn(name = "job_id", referencedColumnName = "job_id")
