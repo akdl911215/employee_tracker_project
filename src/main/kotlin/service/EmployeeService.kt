@@ -1,6 +1,8 @@
 package org.jh.service
 
+import jakarta.persistence.EntityNotFoundException
 import org.jh.dto.EmployeeDto
+import org.jh.dto.EmployeeUpdateDto
 import org.jh.dto.EmployeeWithHistoryDto
 import org.jh.entity.Employee
 import org.jh.entity.JobHistory
@@ -16,9 +18,31 @@ class EmployeeService(
     private val jobHistoryRepository: JobHistoryRepository,
     ) {
 
+    fun updateEmployee(id: Long, updateDto: EmployeeUpdateDto): EmployeeDto {
+        val employee: Employee = employeeRepository.findByIdOrNull(id)
+            ?: throw EntityNotFoundException("Employee with id $id not found")
+
+//        updateDto.firstName?.let { employee.firstName = it }
+//        updateDto.lastName?.let { employee.lastName = it }
+//        updateDto.email?.let { employee.email = it }
+//        updateDto.phoneNumber?.let { employee.phoneNumber = it }
+//        updateDto.salary?.let { employee.salary = it }
+        val updatedEmployee = employee.copy(
+            firstName = updateDto.firstName ?: employee.firstName,
+            lastName = updateDto.lastName ?: employee.lastName,
+            email = updateDto.email ?: employee.email,
+            phoneNumber = updateDto.phoneNumber ?: employee.phoneNumber,
+            salary = updateDto.salary ?: employee.salary
+        )
+
+        val saveEmployee: Employee = employeeRepository.save(updatedEmployee)
+        return EmployeeDto(saveEmployee)
+
+    }
+
     @Transactional(readOnly = true)
     fun getEmployeeById(id: Long): EmployeeDto {
-        val employee = employeeRepository.findById(id)
+        val employee: Employee = employeeRepository.findById(id)
             .orElseThrow { RuntimeException("Employee not found with ID: $id") }
 
         return EmployeeDto(

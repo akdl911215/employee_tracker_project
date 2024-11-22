@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/employees")
 class EmployeeController(private val service: EmployeeService) {
 
-    @Operation(summary = "Find by id employee", description = "Retrieve a specific employee")
+    @Operation(summary = "Find by id employee", description = "특정 사원의 현재 정보 조회 가능한 API 구현")
     @GetMapping("/{id}")
     fun getEmployeeById(@PathVariable id: Long): EmployeeDto {
         return service.getEmployeeById(id)
@@ -21,9 +21,9 @@ class EmployeeController(private val service: EmployeeService) {
 
     @Operation(
         summary = "Retrieve employee with history",
-        description = "Retrieve a specific employee along with their job history, including details about past roles and departments"
+        description = "특정 사원의 이력 정보 조회 가능한 API 구현"
     )
-    @GetMapping("/history/{id}")
+    @GetMapping("/{id}/history")
     fun getEmployeeWithHistory(@PathVariable id: Long): EmployeeWithHistoryDto {
         return service.getEmployeeWithHistory(id)
     }
