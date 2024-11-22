@@ -23,8 +23,18 @@ class SwaggerConfig {
     @Bean
     fun employeeApi(): GroupedOpenApi {
         return GroupedOpenApi.builder()
-            .group("employess")
+            .group("employees")
             .pathsToMatch("/employees/**")
+            .build()
+    }
+
+    @Bean
+    fun locationApi(): GroupedOpenApi {
+
+        println("Registering Location API in Swagger")
+        return GroupedOpenApi.builder()
+            .group("locations")
+            .pathsToMatch("/locations/**")
             .build()
     }
 }
