@@ -20,7 +20,7 @@ class DepartmentController (
         description = "특정 부서의 급여를 특정 비율로 인상 할 수 있는 할 수 있는 API 구현"
     )
     @PatchMapping("/{departmentId}/increase-salaries")
-    fun increaseSalaries(
+    private fun increaseSalaries(
         @PathVariable("departmentId") departmentId: Long,
         @RequestBody body: SalaryIncreaseRequest
     ): ResponseEntity<String> {
