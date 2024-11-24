@@ -13,13 +13,9 @@ class LocationService (
     private val departmentRepository: DepartmentRepository
 ) {
     fun getLocationWithDepartments(locationId: Long): LocationWithDepartmentsDto {
-        println("locationId : $locationId")
-
         val location = locationRepository.findById(locationId)
             ?: throw EntityNotFoundException("Location with id $locationId not found")
-        println("location : $location")
         val departments = departmentRepository.findByLocationId(locationId)
-        println("departments : $departments")
 
         return LocationWithDepartmentsDto(
             locationId = location.get().id,

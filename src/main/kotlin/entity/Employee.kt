@@ -27,7 +27,7 @@ data class Employee (
     val hireDate: LocalDate = LocalDate.now(),
 
     @Column(name = "salary")
-    val salary: Double = 0.0,
+    var salary: Long = 0,
 
     @ManyToOne
     @JoinColumn(name = "job_id", referencedColumnName = "job_id")

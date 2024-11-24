@@ -7,7 +7,7 @@ data class EmployeeDto(
     val lastName: String,
     val email: String,
     val phoneNumber: String?,
-    val salary: Double,
+    val salary: Long,
     val hireDate: String,
     val jobId: String,
     val commissionPct: Double?,
