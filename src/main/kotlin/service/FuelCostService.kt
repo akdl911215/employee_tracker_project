@@ -1,29 +1,65 @@
 package org.jh.service
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
-import org.jh.config.PublicApiConfig
-import org.springframework.beans.factory.annotation.Value
+import io.github.cdimascio.dotenv.Dotenv
 import org.springframework.stereotype.Service
-import org.springframework.web.client.RestTemplate
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import com.fasterxml.jackson.databind.ObjectMapper
 
 @Service
-class FuelCostService (
-    private val restTemplate: RestTemplate,
-    @Value("\${public-api.base-url}") private val baseUrl: String
-) {
+class FuelCostService {
+    private val dotenv = Dotenv.load()
+    private val httpClient = OkHttpClient()
+    private val objectMapper = ObjectMapper()
 
-    fun getFuelCost(fuelType: String, pageNo: Int, numOfRows: Int): String {
-        val apiUrl = baseUrl
-        if (apiUrl.isBlank()) throw RuntimeException("Base URL is missing or not configured")
-        println("Config Base URL: $apiUrl")
+    fun getFuelCost(pageNo: Int, numOfRows: Int): List<Map<String, Any>> {
+        val baseUrl: String = dotenv["PUBLIC_API_BASE_URL"]
+            ?: throw RuntimeException("Environment variable PUBLIC_API_BASE_URL not found")
+        val serviceKey: String = dotenv["PUBLIC_API_SERVICE_KEY"]
+            ?: throw RuntimeException("Environment variable PUBLIC_API_SERVICE_KEY not found")
 
-        val url = "$apiUrl&pageNo=$pageNo&numOfRows=$numOfRows&fuelType=$fuelType"
-        println("Request URL: $url")
+        val url = "$baseUrl?" +
+                "serviceKey=$serviceKey" +
+                "&dataType=json" +
+                "&pageNo=$pageNo" +
+                "&numOfRows=$numOfRows" +
+                "&fuelType=원자력"
 
-        val response = restTemplate.getForObject(url, String::class.java)
-            ?: throw RuntimeException("Failed to fetch data")
+        val request = Request.Builder()
+            .url(url)
+            .get()
+            .build()
 
-        return response
+        val response = httpClient.newCall(request).execute()
+
+        if (!response.isSuccessful) {
+            throw RuntimeException("Failed to fetch data: ${response.code}")
+        }
+
+        val rawJson = response.body?.string()
+            ?: throw RuntimeException("Empty response body")
+
+        return parseAndFormatResponse(rawJson)
     }
-  }
+    private fun parseAndFormatResponse(rawJson: String): List<Map<String, Any>> {
+        val node = objectMapper.readTree(rawJson)
+        val itemsNode = node
+            .path("response")
+            .path("body")
+            .path("items")
+            .path("item")
+
+        if (!itemsNode.isArray) {
+            throw RuntimeException("Unexpected JSON format: 'item' is not an array")
+        }
+
+        return itemsNode.map { itemNode ->
+            mapOf(
+                "fuelType" to itemNode.path("fuelType").asText(),
+                "unit" to itemNode.path("unit").asText(),
+                "cost" to itemNode.path("untpc").asDouble(),
+                "date" to itemNode.path("day").asText()
+            )
+        }
+    }
+}

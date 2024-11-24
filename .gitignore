@@ -6,6 +6,7 @@ build/
 
 ## GIT ##
 /src/main/resources/application.yml
+.env
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
