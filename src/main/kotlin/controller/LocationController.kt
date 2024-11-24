@@ -19,7 +19,7 @@ class LocationController (
         description = "부서 및 위치 정보 조회 가능한 API 구현"
     )
     @GetMapping("/{id}")
-    private fun getLocationWithDepartments(@PathVariable id: Long): LocationWithDepartmentsDto {
+    fun getLocationWithDepartments(@PathVariable id: Long): LocationWithDepartmentsDto {
         println("getLocationWithDepartments id : $id")
 
         return locationService.getLocationWithDepartments(id)

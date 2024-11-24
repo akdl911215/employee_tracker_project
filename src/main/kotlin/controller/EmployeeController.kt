@@ -21,7 +21,7 @@ class EmployeeController(
         description = "특정 사원의 현재 정보 조회 가능한 API 구현"
     )
     @GetMapping("/{id}")
-    private fun getEmployeeById(@PathVariable id: Long): EmployeeDto {
+    fun getEmployeeById(@PathVariable id: Long): EmployeeDto {
         return service.getEmployeeById(id)
     }
 
@@ -30,7 +30,7 @@ class EmployeeController(
         description = "특정 사원의 이력 정보 조회 가능한 API 구현"
     )
     @GetMapping("/{id}/history")
-    private fun getEmployeeWithHistory(@PathVariable id: Long): EmployeeWithHistoryDto {
+    fun getEmployeeWithHistory(@PathVariable id: Long): EmployeeWithHistoryDto {
         return service.getEmployeeWithHistory(id)
     }
 
@@ -39,7 +39,7 @@ class EmployeeController(
         description = "사원 정보를 업데이트 할 수 있는 API 구현"
     )
     @PatchMapping("/{id}")
-    private fun updateEmployee(
+    fun updateEmployee(
         @PathVariable id: Long,
         @RequestBody updateDto: EmployeeUpdateDto
     ): ResponseEntity<EmployeeDto> {
