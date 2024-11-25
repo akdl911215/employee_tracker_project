@@ -34,7 +34,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-configuration-processor")
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
-
 }
 
 tasks.test {
