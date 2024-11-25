@@ -2,10 +2,9 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-COPY build/libs/your-app-name-0.0.1-SNAPSHOT.jar app.jar
+COPY build/libs/kotlin-test-0.0.1-SNAPSHOT.jar app.jar
 
 COPY package*.json ./
-COPY prisma ./prisma/
 
 ENV DATABASE_URL=postgresql://postgres:123456@43.203.208.39:5432/postgres
 ENV PORT=8080
