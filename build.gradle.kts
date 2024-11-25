@@ -9,7 +9,6 @@ plugins {
 tasks.register<Exec>("dockerBuild") {
     group = "docker"
     description = "Build Docker Image"
-    commandLine("docker", "build", "-t", "your-dockerhub-username/your-app-name:latest", ".")
 }
 
 group = "org.jh"
@@ -41,10 +40,10 @@ tasks.test {
 }
 
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(17)
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
