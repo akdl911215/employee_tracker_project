@@ -89,15 +89,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
 
-#      - name: Docker run
-#        run: |
-#          docker network create connect-net || true
-#          docker stop kotlin-back || true && docker rm kotlin-back || true
-#          docker rmi ${{ env.DOCKER_IMAGE }}:latest || true
-#          docker pull ${{ env.DOCKER_IMAGE }}:latest
-#          docker run -itd -p 8080:8080 --network connect-net \\
-#            --name kotlin-back --restart always \
-#            ${{ env.DOCKER_IMAGE }}:latest
+
       - name: Docker run
         run: |
           docker network create connect-net || true
