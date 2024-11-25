@@ -27,7 +27,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          distribution: 'openjdk'
+          distribution: 'temurin'
           java-version: '21'
 
       - name: Make Gradlew Executable
