@@ -11,4 +11,5 @@ ENV PORT=8080
 ENV HOST=3.35.50.208
 
 EXPOSE 8080
+
 ENTRYPOINT ["java", "-jar", "app.jar"]
