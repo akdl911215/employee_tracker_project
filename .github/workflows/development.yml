@@ -97,6 +97,6 @@ jobs:
           docker pull ${{ env.DOCKER_IMAGE }}:latest
           docker run -itd -p 8080:8080 --network connect-net \\
             --name kotlin-back --restart always \
-            ${{ env.DOCKER_IMAGE }}:prod-latest   
+            ${{ env.DOCKER_IMAGE }}:latest   
 
 
